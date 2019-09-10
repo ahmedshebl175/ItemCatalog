@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+
+
+<div class='flash'>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+
+	<ul>
+		{% for message in messages %}
+		<li> <strong> {{ message }} </strong> </li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+
+</div>
+
+
+<div class="container">
+	<div class="row">
+		{% include "nav.html" %}
+		<div class="col-sm-9">
+			<div class=" padding-top padding-bottom">
+				<a href="{{url_for('newMenuItemWithCat', category_id=category.id)}}">Add Item</a>
+			</div>
+			{% if items !=[] %}
+
+			<strong>{{category.name}} Items ({{items|length}} items)</strong>
+
+			{% for i in items %}
+			<div class="row">
+				<div class="col-md-6">
+					<h3 class="menu-item"><a
+							href="{{url_for('showMenuItem', category_id = category.id, menuitem_id = i.id)}}">{{i.name}}</a>
+					</h3>
+
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+
+		<div class="col-md-1"></div>
+	</div>
+	{% endif %}
+</div>
+
+
+{% endblock %}
